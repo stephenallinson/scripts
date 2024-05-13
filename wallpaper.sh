@@ -18,9 +18,9 @@ case $1 in
 # Load wallpaper from .cache of last session
 "init")
 	if [ -f ~/.cache/current_wallpaper.jpg ]; then
-		wal -q -i ~/.cache/current_wallpaper.jpg
+		wal -q -s -i ~/.cache/current_wallpaper.jpg
 	else
-		wal -q -i ~/wallpaper/
+		wal -q -s -i ~/wallpaper/
 	fi
 	;;
 
@@ -31,12 +31,12 @@ case $1 in
 		echo "No wallpaper selected"
 		exit
 	fi
-	wal -q -i ~/wallpaper/$selected
+	wal -q -s -i ~/wallpaper/$selected
 	;;
 
 # Randomly select wallpaper
 "random")
-	wal -q -i ~/wallpaper/
+	wal -q -s -i ~/wallpaper/
 	;;
 
 esac
@@ -61,7 +61,7 @@ newwall=$(echo $wallpaper | sed "s|$HOME/wallpaper/||g")
 # Set the new wallpaper
 # -----------------------------------------------------
 swww kill
-swww init
+swww-daemon &
 
 transition_type="wipe"
 # transition_type="outer"
