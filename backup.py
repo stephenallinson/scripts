@@ -45,30 +45,55 @@ source = [
 # Define the destination root
 destination = f"{home}/backups/"
 
+
 ## BACKUP PROCESS ##
+def init_folders():
+    current_date = datetime.datetime.now().strftime("%Y%m%d")
+    # Ensure that the backups directory exists
+    if not os.path.exists(destination):
+        os.makedirs(destination)
+    # Set the backup directory
+    backup_directory = os.path.join(destination, "backup_" + current_date)
+    # Create the backup directory if it does not exist
+    if not os.path.exists(backup_directory):
+        # Create a backup directory with the current date
+        backup_directory = os.path.join(destination, "backup_" + current_date)
+        os.makedirs(backup_directory)
 
-# Ensure that the backups directory exists
-if not os.path.exists(destination):
-    os.makedirs(destination)
+    return backup_directory
 
-# Create a backup directory with the current date
-current_date = datetime.datetime.now().strftime("%Y%m%d")
-backup_directory = os.path.join(destination, "backup_" + current_date)
 
-# Create the backup directory if it does not exist
-if not os.path.exists(backup_directory):
-    os.makedirs(backup_directory)
+def backup_aur_packages(backup_directory):
+    # Backup the list of AUR packages
+    os.system(f"yay -Q > {backup_directory}/pkglist.txt")
+    print("AUR package list backed up.")
 
-# Copy all files in the source directories and individual files to the backup directory
-for path in source:
-    if os.path.isdir(path):  # path is a directory
-        shutil.copytree(
-            path,
-            os.path.join(backup_directory, os.path.basename(path)),
-            dirs_exist_ok=True,
-        )
-        print(f"DIRECTORY: {os.path.basename(path)} copied to {backup_directory}")
-    elif os.path.isfile(path):  # path is a file
-        shutil.copy2(path, backup_directory)  # copy2 preserves file metadata
-        print(f"FILE: {path} copied to {backup_directory}")
-print("Backup completed.")
+
+def backup_dir_files(backup_directory):
+    # Copy all files in the source directories and individual files to the backup directory
+    for path in source:
+        if os.path.isdir(path):  # path is a directory
+            shutil.copytree(
+                path,
+                os.path.join(backup_directory, os.path.basename(path)),
+                dirs_exist_ok=True,
+            )
+            print(f"DIRECTORY: {os.path.basename(path)} copied to {backup_directory}")
+        elif os.path.isfile(path):  # path is a file
+            shutil.copy2(path, backup_directory)  # copy2 preserves file metadata
+            print(f"FILE: {path} copied to {backup_directory}")
+    print("Backup completed.")
+
+
+def main():
+    backup_directory = init_folders()
+    if not backup_directory:
+        print("Backup directory could not be created.")
+        return
+    else:
+        backup_aur_packages(backup_directory)
+        backup_dir_files(backup_directory)
+
+
+if __name__ == "__main__":
+    main()
