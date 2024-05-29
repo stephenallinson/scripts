@@ -20,5 +20,5 @@ if [[ -n $selected_document ]]; then
   # Find the full path of the selected document
   selected_path=$(find "$SEARCH_DIR" -type f -name "$selected_document")
   # Open the selected file with nvim
-  nvim "$selected_path"
+  alacritty -e nvim "$selected_path"
 fi

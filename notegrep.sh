@@ -24,5 +24,5 @@ selected_document=$(echo "$search_results" | rofi -dmenu -i -p "Select Document:
 
 # Open the document
 if [[ -n $selected_document ]]; then
-  nvim "$selected_document"
+  alacritty -e nvim "$selected_document"
 fi
