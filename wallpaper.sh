@@ -8,6 +8,8 @@
 #
 # by Stephan Raabe (2023)
 # -----------------------------------------------------
+wallpaper="$HOME/.cache/current_wallpaper.jpg"
+echo "Old Wallpaper: $wallpaper"
 
 if [ -z "$1" ]; then
 	echo "Usage: $0 [init|select|random]"
@@ -45,7 +47,7 @@ esac
 # Load current pywal color scheme
 # -----------------------------------------------------
 source "$HOME/.cache/wal/colors.sh"
-echo "Wallpaper: $wallpaper"
+echo "New Wallpaper: $wallpaper"
 
 # -----------------------------------------------------
 # Copy selected wallpaper into .cache folder
