@@ -1,2 +1,3 @@
 #!/bin/bash
-exec swaync-client -t -sw
+sleep 0.1
+swaync-client -t 
