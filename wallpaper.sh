@@ -74,8 +74,9 @@ swww img $wallpaper \
 	--transition-fps=60 \
 	--transition-type=$transition_type \
 	--transition-duration=0.7
+swaync-client -rs
 
-# qtile cmd-obj -o cmd -f reload_config
+qtile cmd-obj -o cmd -f reload_config
 
 # -----------------------------------------------------
 # Send notification

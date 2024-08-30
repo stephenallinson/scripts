@@ -31,6 +31,7 @@ swww img $wallpaper \
 	--transition-fps=60 \
 	--transition-type="wipe" \
 	--transition-duration=1.5
+swaync-client -rs
 # -----------------------------------------------------
 # Reload qtile to color bar
 # -----------------------------------------------------
