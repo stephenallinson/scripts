@@ -51,12 +51,4 @@ if [ ! -f "$file" ]; then
 fi
 
 # Open the daily note at the bottom of the file in insert mode and run NoNeckPain to make it center
-if [ "$#" -eq 0 ]; then
-    nvim '+ normal Gzzo'  "$file"
-else
-    if [ "$1" = "zen" ]; then
-        nvim '+ normal Gzzo' "$file" -c :ZenMode
-    else
-        echo "Invalid argument"
-    fi
-fi
+nvim '+ normal Gzzo' "$file" -c :NoNeckPain
